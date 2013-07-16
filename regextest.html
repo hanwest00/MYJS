@@ -1,0 +1,43 @@
+﻿<html>
+<head>
+<title>regex test</title>
+<style>
+span {width:90px;display:inline-block;text-align:right;}
+</style>
+</head>
+<body>
+<span>正則式 ：</span><input id="regexstr" type="text" /><br />
+<span>測試類型 ：</span><select id="typeselect">
+<option value="test">test</option>
+<option value="match">match</option>
+</select><br />
+<span>驗證文字 ：</span><textarea id="parttenstr"></textarea><br />
+<span>結果 ：</span><textarea id="retstr" readonly="readonly"></textarea><br />
+<span></span><button onclick="tryregex();" style="width:100px;height:30px;" >TEST</button>
+<script>
+
+
+function tryregex()
+ {
+    var reginput = document.getElementById("regexstr");
+    var typeselect = document.getElementById("typeselect");
+    var partteninput = document.getElementById("parttenstr");
+    var retstrinput = document.getElementById("retstr");
+  
+    var reg = eval("/"+ reginput.value +"/g");
+    switch(typeselect.value)
+    {
+       case "test":
+	   retstrinput.value = "";
+	   retstrinput.value = reg.test(partteninput.value) ? "匹配" : "不匹配";
+	     break;
+	   case "match":
+	   retstrinput.value = "";
+	   retstrinput.value = reg.exec(partteninput.value);
+	     break;
+    }
+ }
+
+</script>
+</body>
+</html>
