@@ -1,5 +1,8 @@
-//type : 0 input hidden , 1 click hidden
-function placeHolder(objId,holderText,type) {
+/*
+	@Hanson
+*/
+
+function placeHolder(objId,holderText,type/*0 : input hidden , 1 : click hidden*/) {
      var ieReg = /MSIE [78]/;
      var userPholder = null;
      var obj = document.getElementById(objId);
