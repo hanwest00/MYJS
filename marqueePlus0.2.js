@@ -19,11 +19,13 @@
 		innerHeight = mDiv.scrollHeight;
 		
 		if(direction < 2) {
-			if(innerHeight <= parseInt(mDiv.style.height.replace("px",""))) {
+			//if(innerHeight <= parseInt(mDiv.style.height.replace("px",""))) {
+			if(innerHeight <= height) {
 				return;
 			}
 		} else {
-		   if(innerWidth <= parseInt(mDiv.style.width.replace("px",""))) {
+		   //if(innerWidth <= parseInt(mDiv.style.width.replace("px",""))) {
+			if(innerHeight <= width) {
 				return;
 			}
 		}
