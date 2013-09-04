@@ -7,18 +7,19 @@ function placeHolder(objId,holderText,type/*0 : input hidden , 1 : click hidden*
      var userPholder = null;
      var obj = document.getElementById(objId);
      
-     if(ieReg.test(navigator.userAgent)) {
+     if(!ieReg.test(navigator.userAgent)) {
+		return;
+	 }
+	 
+     if(obj.parentNode.style.position != "relative") {
+        obj.parentNode.style.position = "relative";
+	 }
+     userPholder = document.createElement("span");
      
-        if(obj.parentNode.style.position != "relative") {
-           obj.parentNode.style.position = "relative";
-	    }
-        userPholder = document.createElement("span");
-        
-        userPholder.innerHTML = holderText;
-        userPholder.style.cssText = "position:absolute;top:4px;cursor:text;left:2px;z-index:0;color:#999;";
-        
-        obj.parentNode.appendChild(userPholder);
-     }
+     userPholder.innerHTML = holderText;
+     userPholder.style.cssText = "position:absolute;top:4px;cursor:text;left:2px;z-index:0;color:#999;";
+     
+     obj.parentNode.appendChild(userPholder);
      
      userPholder.onclick = function () {
 	     obj.focus();
