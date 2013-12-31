@@ -1,0 +1,113 @@
+<style>
+	*{
+		padding:0;
+		margin:0;
+	}
+	
+	div {
+		width:260px;
+		height:150px;
+		overflow:hidden;
+		border:#ccc 1px solid;
+		margin:10px auto;
+		padding:0px 5px 0px 5px;
+	}
+	ul {
+		list-style:none;
+		-moz-user-select:none;
+	}
+	ul li {
+		height:30px;
+		width:100%;
+		background:#c3c;
+		border-top:#ccc 1px solid;
+		border-left:#ccc 1px solid;
+		border-right:#ccc 1px solid;
+		color:#45d6f2;
+		line-height:25px;
+		text-align:center;
+	}
+</style>
+
+<div>
+	<ul>
+		<li>msg1msg1msg1msg1msg1</li>
+		<li>msg1msg1msg1msg1msg1</li>
+		<li>msg1msg1msg1msg1msg1</li>
+		<li>msg1msg1msg1msg1msg1</li>
+		<li>msg1msg1msg1msg1msg1</li>
+		<li>msg1msg1msg1msg1msg1</li>
+		<li>msg1msg1msg1msg1msg1</li>
+		<li>msg1msg1msg1msg1msg1</li>
+		<li>msg1msg1msg1msg1msg1</li>
+		<li>msg1msg1msg1msg1msg1</li>
+	<ul>
+</div>
+
+<div id="result"></div>
+
+<script>
+	document.onreadystatechange = function(){
+		if(document.readyState == "complete")
+		{
+			var ret = document.getElementById("result");
+			var div = document.getElementsByTagName("div")[0];
+			var ul = document.getElementsByTagName("ul")[0];
+			ul.onselectstart = function(e){return false};
+			var press = false;
+			var startY = 0;
+			var maxSub = ul.scrollHeight - div.offsetHeight;
+			var perTop = 0;
+			var scrollStep = 10;
+			if(maxSub > 0)
+			{
+				ul.onmousedown = function(e){
+					press = true;
+					e = e || window.event;
+					startY = e.clientY;
+				}
+				
+				document.onmouseup = function(){
+					press = false;
+					startY = 0;
+					var cTop = parseInt(ul.style.marginTop.replace("px",""));
+					if(perTop != cTop) {
+						perTop = cTop;
+					}
+				};
+				
+				var browser = window.navigator.userAgent.toLowerCase().indexOf('firefox');
+				if (browser != -1) {
+					div.addEventListener("DOMMouseScroll", function(e){
+						var cTop = parseInt(ul.style.marginTop.replace("px",""));
+						if(!isNaN(cTop)) {
+							ul.style.marginTop = (cTop + e.detail * scrollStep) + "px";
+							return;
+						}
+						ul.style.marginTop = e.detail + "px";
+					});
+				}
+				else {
+					div.onmousewheel =function(e){
+						var cTop = parseInt(ul.style.marginTop.replace("px",""));
+						if(!isNaN(cTop)) {
+							ul.style.marginTop = (cTop + e.detail * scrollStep) + "px";
+							return;
+						}
+						ul.style.marginTop = e.detail + "px";
+					};
+				}
+				
+				ul.onmousemove = function(e){
+					e = e || window.event;
+					ret.innerHTML = perTop;
+					if(press){
+						var sub = e.clientY - startY;
+						ul.style.marginTop = (perTop + sub) + "px"; 
+					}
+				};
+			}
+		}
+	};
+	
+</script>
